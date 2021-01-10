@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 
 import Dashboard from './containers/Dashboard';
 
@@ -20,7 +20,10 @@ import './App.scss';
 
   textfield
   dropdown
-  
+
+
+  what data do you want to show in the table?
+  year, date, district, description, ward, arrest made?, 
 
   primary_type - type of crime
   ward - district? location of crime
@@ -43,16 +46,18 @@ import './App.scss';
 */
 
 function App() {
+  const [testData, setTestData] = useState(undefined);
+
   useEffect(() => {
     const testURL = 'https://data.cityofchicago.org/resource/ijzp-q8t2.json';
     fetch(testURL)
       .then((response) => response.json())
-      .then((data) => console.log(data));
+      .then((data) => setTestData(data));
   }, []);
 
   return (
     <div className='App'>
-      <Dashboard />
+      <Dashboard data={testData} />
     </div>
   );
 }

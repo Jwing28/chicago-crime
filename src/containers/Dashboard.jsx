@@ -1,26 +1,28 @@
 import React from 'react';
-
+import Table from '../components/Table';
 import { Content, Header } from '../components/styled/Styled';
-/*
-    <>
-        <Header /> - Simple logo
-            <Content> - Smart, controls state and passes it down to the other components
-                <ControlPanel />
-                <Charts /> -> pie, table, trend
-                <Table /> 
-            </Content>
-        <Footer /> - info about me and/or the app
-    </>
-*/
-const Dashboard = () => {
+import { CustomPieChart } from './Charts';
+import PropTypes from 'prop-types';
+
+const Dashboard = ({ data }) => {
   return (
     <>
       <Header>
         <h2>Chicago Crime Data</h2>
       </Header>
-      <Content>Test</Content>
+      <Content buffer='100px'>
+        <CustomPieChart />
+        <CustomPieChart />
+      </Content>
+      <Content>
+        <Table data={data} />
+      </Content>
     </>
   );
+};
+
+Dashboard.propTypes = {
+  data: PropTypes.array,
 };
 
 export default Dashboard;
