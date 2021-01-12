@@ -1,64 +1,12 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { Pie, PieChart, ResponsiveContainer } from 'recharts';
 
-const data01 = [
-  {
-    name: 'Group A',
-    value: 400,
-  },
-  {
-    name: 'Group B',
-    value: 300,
-  },
-  {
-    name: 'Group C',
-    value: 300,
-  },
-  {
-    name: 'Group D',
-    value: 200,
-  },
-  {
-    name: 'Group E',
-    value: 278,
-  },
-  {
-    name: 'Group F',
-    value: 189,
-  },
-];
-const data02 = [
-  {
-    name: 'Group A',
-    value: 2400,
-  },
-  {
-    name: 'Group B',
-    value: 4567,
-  },
-  {
-    name: 'Group C',
-    value: 1398,
-  },
-  {
-    name: 'Group D',
-    value: 9800,
-  },
-  {
-    name: 'Group E',
-    value: 3908,
-  },
-  {
-    name: 'Group F',
-    value: 4800,
-  },
-];
-
-export const CustomPieChart = () => (
+const CustomPieChart = ({ data }) => (
   <ResponsiveContainer width='70%' aspect={1.5} height='90%'>
     <PieChart>
       <Pie
-        data={data01}
+        data={data}
         dataKey='value'
         nameKey='name'
         cx='50%'
@@ -66,17 +14,15 @@ export const CustomPieChart = () => (
         outerRadius={50}
         fill='#8884d8'
       />
-      <Pie
-        data={data02}
-        dataKey='value'
-        nameKey='name'
-        cx='50%'
-        cy='50%'
-        innerRadius={60}
-        outerRadius={80}
-        fill='#82ca9d'
-        label
-      />
     </PieChart>
   </ResponsiveContainer>
 );
+
+CustomPieChart.propTypes = {
+  data: PropTypes.shape({
+    name: PropTypes.string,
+    value: PropTypes.string,
+  }),
+};
+
+export default CustomPieChart;

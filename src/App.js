@@ -37,7 +37,9 @@ import './App.scss';
   fbi code - can you find what these are?
   description
 
-
+  Monday - get charts working. 
+         - add some tests (RTL)
+         - Done
   )________
   next project (2): create something with a simple backend.
 
@@ -46,18 +48,50 @@ import './App.scss';
 */
 
 function App() {
-  const [testData, setTestData] = useState(undefined);
+  const [data, setData] = useState(undefined);
+  const [chartData, setChartData] = useState(undefined);
+
+  const transFormToChart = (data, year) =>
+    data
+      .filter((crime) => crime.year == year)
+      .reduce((accum, crime) => {
+        // attempt to find index of crime.
+        const crimeIndex = accum.findIndex(
+          (accumCrime) => accumCrime.name === crime.type
+        );
+
+        // if crime already added, update the value
+        if (accum[crimeIndex]) {
+          accum[crimeIndex] = {
+            name: crime.type,
+            value: accum[crimeIndex].value + 1,
+          };
+          return accum;
+        }
+
+        // new crime
+        return accum.concat([{ name: crime.type, value: 1 }]);
+      }, []);
 
   useEffect(() => {
-    const testURL = 'https://data.cityofchicago.org/resource/ijzp-q8t2.json';
-    fetch(testURL)
+    const url = 'https://data.cityofchicago.org/resource/ijzp-q8t2.json';
+    fetch(url)
       .then((response) => response.json())
-      .then((data) => setTestData(data));
+      .then((data) => {
+        // chart data requires transformation
+        const chartReadyData2021 = transFormToChart(data, '2021');
+        const chartReadyData2020 = transFormToChart(data, '2020');
+        setChartData({
+          data2021: chartReadyData2021,
+          data2020: chartReadyData2020,
+        });
+        setData(data);
+      });
   }, []);
 
   return (
     <div className='App'>
-      <Dashboard data={testData} />
+      <Dashboard data={data} chartData={chartData} />
     </div>
   );
 }
