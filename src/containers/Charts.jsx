@@ -1,28 +1,34 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Pie, PieChart, ResponsiveContainer } from 'recharts';
+import { Legend, Pie, PieChart, Tooltip } from 'recharts';
 
-const CustomPieChart = ({ data }) => (
-  <ResponsiveContainer width='70%' aspect={1.5} height='90%'>
-    <PieChart>
+const CustomPieChart = ({ data }) => {
+  return (
+    <PieChart margin={100} height={500} width={900}>
+      <Tooltip cursor={{ stroke: 'red', strokeWidth: 2 }} />
+      <Legend height={36} />
       <Pie
         data={data}
         dataKey='value'
         nameKey='name'
         cx='50%'
         cy='50%'
-        outerRadius={50}
+        innerRadius={60}
+        outerRadius={100}
         fill='#8884d8'
+        legendType='diamond'
       />
     </PieChart>
-  </ResponsiveContainer>
-);
+  );
+};
 
 CustomPieChart.propTypes = {
-  data: PropTypes.shape({
-    name: PropTypes.string,
-    value: PropTypes.string,
-  }),
+  data: PropTypes.arrayOf(
+    PropTypes.objectOf({
+      name: PropTypes.string,
+      value: PropTypes.string,
+    })
+  ),
 };
 
 export default CustomPieChart;

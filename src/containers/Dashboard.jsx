@@ -14,13 +14,14 @@ import PropTypes from 'prop-types';
 // second pie chart
 // breakdown of crime types in 2020
 const Dashboard = ({ chartData, data }) => {
+  console.log({ wtf: chartData['data2021'] });
   return (
     <>
       <Header>
-        <h2>Chicago Crime Data</h2>
+        <h2>Chicago Crime Data (2021)</h2>
       </Header>
-      <Content buffer='100px'>
-        <CustomPieChart data={chartData['data2020']} />
+      <Content>
+        {/* <CustomPieChart data={chartData['data2020']} /> */}
         <CustomPieChart data={chartData['data2021']} />
       </Content>
       <Content>
@@ -31,7 +32,7 @@ const Dashboard = ({ chartData, data }) => {
 };
 
 Dashboard.propTypes = {
-  chartData: PropTypes.array,
+  chartData: PropTypes.object,
   data: PropTypes.array,
 };
 

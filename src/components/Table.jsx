@@ -16,6 +16,8 @@ const useStyles = makeStyles({
   },
   table: {
     minWidth: 650,
+    border: '1px solid black',
+    fontSize: '1.1rem',
   },
 });
 
@@ -36,7 +38,7 @@ function DataTable({ data }) {
   const convertBoolean = (bool) => (bool === true ? 'Y' : 'N');
 
   return (
-    <Paper className={classes.root}>
+    <Paper style={{ marginTop: '100px' }} className={classes.root}>
       <TableContainer component={Paper}>
         <Table className={classes.table} aria-label='simple table'>
           <TableHead>
